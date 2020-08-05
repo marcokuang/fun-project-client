@@ -3,6 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import * as actions from "../action";
+import { Button, Label, Form } from 'semantic-ui-react';
 
 class SignIn extends React.Component {
   handleOnFormSubmit = (formProps) => {
@@ -16,9 +17,9 @@ class SignIn extends React.Component {
     const { handleSubmit } = this.props;
     return (
       // provided by redux form
-      <form onSubmit={handleSubmit(this.handleOnFormSubmit)}>
+      <Form onSubmit={handleSubmit(this.handleOnFormSubmit)}>
         <fieldset>
-          <label>Email</label>
+          <Label>Email</Label>
           <Field
             name="email"
             type="text"
@@ -27,11 +28,11 @@ class SignIn extends React.Component {
           />
         </fieldset>
         <fieldset>
-          <label>Password</label>
+          <Label>Password</Label>
           <Field name="password" type="password" component="input" />
         </fieldset>
-        <button type="submit">Sign In</button>
-      </form>
+        <Button type="submit">Sign In</Button>
+      </Form>
     );
   }
 }
