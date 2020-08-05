@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../action";
+import requireSignIn from "./requireSignIn";
 
 class SignOut extends React.Component {
   componentDidMount() {
@@ -12,4 +13,4 @@ class SignOut extends React.Component {
   }
 }
 
-export default connect(null, actions)(SignOut);
+export default connect(null, actions)(requireSignIn(SignOut));

@@ -1,8 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Segment } from 'semantic-ui-react';
-
 class Header extends React.Component {
+  renderLinks() {
+    if (this.props.authenticated) {
+      return <Link to="/signout">Sign Out</Link>
+    } else {
+      return <Link to="/signin">Sign In</Link>;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -11,10 +19,7 @@ class Header extends React.Component {
             <Link to="/">Home</Link>
           </Segment>
           <Segment>
-            <Link to="/signin">Sign In</Link>
-          </Segment>
-          <Segment>
-            <Link to="/signout">Sign Out</Link>
+            {this.renderLinks()}
           </Segment>
         </Segment.Group>
       </div>
@@ -22,4 +27,10 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    authenticated: state.auth.authenticated,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
