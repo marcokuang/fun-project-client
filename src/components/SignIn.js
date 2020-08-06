@@ -3,7 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import * as actions from "../action";
-import { Button, Label, Form } from 'semantic-ui-react';
+import { Button, Label, Form, Container } from "semantic-ui-react";
 
 class SignIn extends React.Component {
   handleOnFormSubmit = (formProps) => {
@@ -17,22 +17,24 @@ class SignIn extends React.Component {
     const { handleSubmit } = this.props;
     return (
       // provided by redux form
-      <Form onSubmit={handleSubmit(this.handleOnFormSubmit)}>
-        <fieldset>
-          <Label>Email</Label>
-          <Field
-            name="email"
-            type="text"
-            component="input"
-            autoComplete="none"
-          />
-        </fieldset>
-        <fieldset>
-          <Label>Password</Label>
-          <Field name="password" type="password" component="input" />
-        </fieldset>
-        <Button type="submit">Sign In</Button>
-      </Form>
+      <Container text>
+        <Form onSubmit={handleSubmit(this.handleOnFormSubmit)}>
+          <Form.Field>
+            <label>Email</label>
+            <Field
+              name="email"
+              type="text"
+              component="input"
+              autoComplete="none"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <Field name="password" type="password" component="input" />
+          </Form.Field>
+          <Button type="submit">Sign In</Button>
+        </Form>
+      </Container>
     );
   }
 }
