@@ -14,7 +14,7 @@ class MainPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.authenticated,
+    user: state.auth.authenticated.email,
   };
 };
 

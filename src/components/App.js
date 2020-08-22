@@ -7,7 +7,7 @@ export default (props) => {
   return (
     <div>
       <Segment.Group>
-        <Segment padded>
+        <Segment padded inverted>
           <Header />
         </Segment>
         <Segment padded>{props.children}</Segment>
