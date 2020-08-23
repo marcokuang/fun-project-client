@@ -5,7 +5,7 @@ import { Menu, Segment } from "semantic-ui-react";
 
 class Header extends React.Component {
   renderLinks() {
-    if (this.props.authenticated) {
+    if (this.props.authenticated && this.props.authenticated.email) {
       return (
         <Link to="/signout" className="item">
           Sign Out
