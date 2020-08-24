@@ -18,7 +18,7 @@ export default function CategoryForm({ contextRef, handleSubmit }) {
                 name="categories"
                 onChange={(e, arg) => {
                   console.log(arg);
-                  actions.updateCategory(myDispatch)(arg.value);
+                  myDispatch(actions.updateCategory(arg.value));
                 }}
                 value={flashcardState.selectedCategory}
               />
@@ -28,7 +28,7 @@ export default function CategoryForm({ contextRef, handleSubmit }) {
                 label="Number of Questions"
                 name="number"
                 onChange={(e) =>
-                  actions.updateNumOfQuestions(myDispatch)(e.target.value)
+                  myDispatch(actions.updateNumOfQuestions(e.target.value))
                 }
                 value={flashcardState.number}
               />

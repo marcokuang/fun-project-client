@@ -6,7 +6,6 @@ export default (
 ) => {
   switch (action.type) {
     case "UPDATE_FLASHCARDS":
-      console.log("reducer:", action.payload);
       return { ...state, cards: [...action.payload] };
     case "GET_CATEGORIES":
       return { ...state, categories: action.payload };

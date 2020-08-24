@@ -5,7 +5,7 @@ function setLocalStorage({ email, token }) {
   localStorage.setItem("token", token);
 }
 
-export const getFlashCards = (dispatch, number, category) => () => {
+export const getFlashCards = () => async (dispatch, getState) => {
   let formatResults = (results) =>
     results.map((card, index) => {
       return {
@@ -17,54 +17,48 @@ export const getFlashCards = (dispatch, number, category) => () => {
         ),
       };
     });
-
-  let fetchFlashCards = async () => {
-    const res = await axios.get("https://opentdb.com/api.php?", {
-      params: {
-        amount: number,
-        category: category,
-      },
-    });
-    let cards = formatResults(res.data.results);
-    console.log(cards);
-    dispatch({
-      type: "UPDATE_FLASHCARDS",
-      payload: cards,
-    });
-  };
-  fetchFlashCards();
+  let { number, selectedCategory: category } = getState().flashcard;
+  const res = await axios.get("https://opentdb.com/api.php?", {
+    params: {
+      amount: number,
+      category: category,
+    },
+  });
+  let cards = formatResults(res.data.results);
+  dispatch({
+    type: "UPDATE_FLASHCARDS",
+    payload: cards,
+  });
 };
 
-export const updateCategory = (dispatch) => (category) => {
-  dispatch({
+export const updateCategory = (category) => {
+  return {
     type: "UPDATE_CATEGORY",
     payload: category,
-  });
+  };
 };
 
-export const updateNumOfQuestions = (dispatch) => (number) => {
-  dispatch({
+export const updateNumOfQuestions = (number) => {
+  return {
     type: "UPDATE_NUMBER",
     payload: number,
-  });
+  };
 };
 
-export const getQuestionCategories = (dispatch) => () => {
-  const fetchData = async () => {
-    const res = await axios.get("https://opentdb.com/api_category.php");
-    let categories = res.data.trivia_categories.map(({ name, id }) => ({
-      text: name,
-      value: id,
-      key: id,
-    }));
-    dispatch({
-      type: "GET_CATEGORIES",
-      payload: categories,
-    });
-    return categories;
-  };
-  const payload = fetchData();
-  console.log("Action creator: ", payload);
+// use redux-thunk for async
+export const getQuestionCategories = () => async (dispatch, getState) => {
+  console.log("Action: ", getState(), dispatch);
+  const res = await axios.get("https://opentdb.com/api_category.php");
+
+  let categories = res.data.trivia_categories.map(({ name, id }) => ({
+    text: name,
+    value: id,
+    key: id,
+  }));
+  dispatch({
+    type: "GET_CATEGORIES",
+    payload: categories,
+  });
 };
 
 // "https://opentdb.com/api.php?amount=10"

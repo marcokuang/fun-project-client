@@ -6,42 +6,36 @@ import * as actions from "../action";
 import "../assets/style/list.css";
 
 export default function MainPage() {
+  // retrieve the state from the redux store
   let authState = useSelector(
     (state) => state.auth.authenticated,
     shallowEqual
   );
-  let flashcardState = useSelector((state) => state.flashcard, shallowEqual);
+
   let dispatch = useDispatch();
 
-  useEffect(
-    actions.getFlashCards(
-      dispatch,
-      flashcardState.number,
-      flashcardState.selectedCategory
-    ),
-    []
-  );
+  useEffect(() => {
+    dispatch(actions.getFlashCards());
+  }, []);
 
-  useEffect(actions.getQuestionCategories(dispatch), []);
-  // console.log("hook", flashcardState);
+  useEffect(() => {
+    dispatch(actions.getQuestionCategories());
+  }, []);
 
+  // copy from semantic UI example to get a context ref for the currect component
   let contextRef = useRef();
 
   let handleSubmit = (e) => {
     e.preventDefault();
     //invoke the action creator immediately
-    actions.getFlashCards(
-      dispatch,
-      flashcardState.number,
-      flashcardState.selectedCategory
-    )();
+    dispatch(actions.getFlashCards());
   };
 
   if (authState && authState.email) {
     return (
       <div ref={contextRef} className="sticky-bar">
         <CategoryForm handleSubmit={handleSubmit} contextRef={contextRef} />
-        <FlashCardList flashcards={flashcardState.cards} />
+        <FlashCardList />
       </div>
     );
   } else {
