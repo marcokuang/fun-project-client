@@ -1,25 +1,25 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { Menu, Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 
 class Header extends React.Component {
   renderLinks() {
     if (this.props.authenticated && this.props.authenticated.email) {
       return (
-        <Link to="/signout" className="item">
+        <Menu.Item as={NavLink} to="/signout">
           Sign Out
-        </Link>
+        </Menu.Item>
       );
     } else {
       return (
         <React.Fragment>
-          <NavLink to="/signin" className="item">
+          <Menu.Item as={NavLink} to="/signin">
             Sign In
-          </NavLink>
-          <NavLink to="/signup" className="item">
+          </Menu.Item>
+          <Menu.Item as={NavLink} to="/signup">
             Sign Up
-          </NavLink>
+          </Menu.Item>
         </React.Fragment>
       );
     }
@@ -27,14 +27,22 @@ class Header extends React.Component {
 
   render() {
     return (
-      <Menu fixed="top" inverted pointing secondary>
-        {/* <Menu fixed="top" pointing secondary></Menu> */}
-        <Menu.Item header>4 Fun Coder Project</Menu.Item>
-        <NavLink exact to="/" className="item">
-          Home
-        </NavLink>
-        {this.renderLinks()}
-      </Menu>
+      // <Menu pointing secondary>
+      <Fragment>
+        <Menu
+          fixed="top"
+          pointing
+          secondary
+          style={{ backgroundColor: "white" }}
+        >
+          <Menu.Item header>4 Fun Coder Project</Menu.Item>
+          <Menu.Item as={Link} to="/">
+            Home
+          </Menu.Item>
+
+          {this.renderLinks()}
+        </Menu>
+      </Fragment>
     );
   }
 }

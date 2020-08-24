@@ -1,0 +1,57 @@
+/* .card-grid {
+  display: grid;
+  align-items: center;
+
+} */
+
+.my-card {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  /* position: relative; */
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0)) !important;
+  transform-style: preserve-3d;
+  transition: 150ms;
+
+  height: 150px;
+  width: 200px;
+}
+
+.my-card.flip {
+  --rotate-y: 180deg;
+  flex-flow: column-reverse;
+}
+
+.my-card .front,
+.my-card .back {
+  /* position: absolute;
+  padding: 1rem; */
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.d-none {
+  /* display: none; */
+}
+
+.my-card .front {
+  left: 0;
+  margin-bottom: 0.5rem;
+}
+
+.my-card .back {
+  transform: rotateY(180deg) !important;
+  border-top: 0 !important;
+}
+
+.flashcard-options {
+  margin-top: 0.5rem;
+  /* flex-flow: column;
+  display: flex; */
+}
+
+.flashcard-option {
+  margin-top: 0.25rem;
+  color: #555;
+  font-size: 0.75rem;
+}

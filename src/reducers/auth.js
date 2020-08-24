@@ -1,5 +1,3 @@
-import actions from "redux-form/lib/actions";
-
 //load previous token from local storage.
 function getLocalStorage() {
   let email = localStorage.getItem("email");

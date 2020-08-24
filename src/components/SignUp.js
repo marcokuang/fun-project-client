@@ -3,7 +3,7 @@ import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import * as actions from "../action";
-import { Button, Label, Form, Container } from "semantic-ui-react";
+import { Button, Form, Container } from "semantic-ui-react";
 
 class SignUp extends React.Component {
   handleOnFormSubmit = (formProps) => {
