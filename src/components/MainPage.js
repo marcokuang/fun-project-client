@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import FlashCardList from "./flashcard/FlashCardList";
 import CategoryForm from "./flashcard/CategoryForm";
@@ -16,11 +16,11 @@ export default function MainPage() {
 
   useEffect(() => {
     dispatch(actions.getFlashCards());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(actions.getQuestionCategories());
-  }, []);
+  }, [dispatch]);
 
   // copy from semantic UI example to get a context ref for the currect component
   let contextRef = useRef();

@@ -1,4 +1,13 @@
 import axios from "axios";
+import {
+  UPDATE_FLASHCARDS,
+  UPDATE_CATEGORY,
+  UPDATE_NUMBER,
+  GET_CATEGORIES,
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_OUT,
+} from "./ActionTypes";
 
 function setLocalStorage({ email, token }) {
   localStorage.setItem("email", email);
@@ -26,21 +35,21 @@ export const getFlashCards = () => async (dispatch, getState) => {
   });
   let cards = formatResults(res.data.results);
   dispatch({
-    type: "UPDATE_FLASHCARDS",
+    type: UPDATE_FLASHCARDS,
     payload: cards,
   });
 };
 
 export const updateCategory = (category) => {
   return {
-    type: "UPDATE_CATEGORY",
+    type: UPDATE_CATEGORY,
     payload: category,
   };
 };
 
 export const updateNumOfQuestions = (number) => {
   return {
-    type: "UPDATE_NUMBER",
+    type: UPDATE_NUMBER,
     payload: number,
   };
 };
@@ -56,7 +65,7 @@ export const getQuestionCategories = () => async (dispatch, getState) => {
     key: id,
   }));
   dispatch({
-    type: "GET_CATEGORIES",
+    type: GET_CATEGORIES,
     payload: categories,
   });
 };
@@ -75,7 +84,7 @@ export const signIn = (props, callback) => async (dispatch) => {
     const payload = { email: props.email, token: result.data.token };
     setLocalStorage(payload);
     dispatch({
-      type: "SIGN_IN",
+      type: SIGN_IN,
       payload,
     });
   } catch (err) {
@@ -92,7 +101,7 @@ export const signUp = (props, callback) => async (dispatch) => {
     const payload = { email: props.email, token: result.data.token };
     setLocalStorage(payload);
     dispatch({
-      type: "SIGN_UP",
+      type: SIGN_UP,
       payload,
     });
   } catch (err) {
@@ -105,6 +114,6 @@ export const signOut = () => {
   localStorage.removeItem("token");
 
   return {
-    type: "SIGN_OUT",
+    type: SIGN_OUT,
   };
 };
