@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import FlashCardList from "./flashcard/FlashCardList";
-import CategoryForm from "./flashcard/CategoryForm";
-import * as actions from "../action";
+import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import Feature from "./flashcard/Feature";
 import "../assets/style/list.css";
 
 export default function MainPage() {
@@ -12,32 +10,8 @@ export default function MainPage() {
     shallowEqual
   );
 
-  let dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(actions.getFlashCards());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(actions.getQuestionCategories());
-  }, [dispatch]);
-
-  // copy from semantic UI example to get a context ref for the currect component
-  let contextRef = useRef();
-
-  let handleSubmit = (e) => {
-    e.preventDefault();
-    //invoke the action creator immediately
-    dispatch(actions.getFlashCards());
-  };
-
   if (authState && authState.email) {
-    return (
-      <div ref={contextRef} className="sticky-bar">
-        <CategoryForm handleSubmit={handleSubmit} contextRef={contextRef} />
-        <FlashCardList />
-      </div>
-    );
+    return <Feature />;
   } else {
     return <div>Main Page is here</div>;
   }
